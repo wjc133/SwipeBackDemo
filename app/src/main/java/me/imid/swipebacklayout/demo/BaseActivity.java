@@ -3,6 +3,7 @@ package me.imid.swipebacklayout.demo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 import main.java.me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -19,7 +20,8 @@ public class BaseActivity extends SwipeBackActivity implements SwipeBackLayout.S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WhistleApp.mHandler.add
+        WhistleApp.addCallback(this);
+        getSwipeBackLayout().setSwipeListener(this);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class BaseActivity extends SwipeBackActivity implements SwipeBackLayout.S
 
     @Override
     public void onEdgeTouch(int edgeFlag) {
-
+        Log.v("edgeFlag",edgeFlag+"");
     }
 
     @Override
@@ -57,6 +59,18 @@ public class BaseActivity extends SwipeBackActivity implements SwipeBackLayout.S
 
     @Override
     public boolean handleMessage(Message msg) {
-        return false;
+        if (isFront){
+            return true;
+        }
+        float percent=msg.getData().getFloat(Utils.SCROLL_PERCENT);
+        View view=getWindow().getDecorView();
+        view.setTranslationX(-(1-percent)*view.getWidth()/4);
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        WhistleApp.removeCallback(this);
+        super.onDestroy();
     }
 }

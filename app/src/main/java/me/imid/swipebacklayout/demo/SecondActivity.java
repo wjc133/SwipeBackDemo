@@ -5,7 +5,7 @@ import android.os.Bundle;
 import main.java.me.imid.swipebacklayout.lib.SwipeBackLayout;
 import main.java.me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class SecondActivity extends SwipeBackActivity implements SwipeBackLayout.SwipeListener{
+public class SecondActivity extends BaseActivity{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,23 +16,4 @@ public class SecondActivity extends SwipeBackActivity implements SwipeBackLayout
 		getSwipeBackLayout().setSwipeListener(this);
 	}
 
-	@Override
-	public void onScrollStateChange(int state, float scrollPercent) {
-
-	}
-
-	@Override
-	public void onEdgeTouch(int edgeFlag) {
-
-	}
-
-	@Override
-	public void onScrollOverThreshold() {
-
-	}
-
-	@Override
-	public void onPositionChanged(float scrollPercent) {
-
-	}
 }

@@ -13,11 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DemoActivity extends SwipeBackActivity implements View.OnClickListener {
+public class DemoActivity extends BaseActivity implements View.OnClickListener {
     private int[] mBgColors;
     private static int mBgIndex = 0;
-    private View mDec;
-    private SwipeBackLayout swipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,6 @@ public class DemoActivity extends SwipeBackActivity implements View.OnClickListe
         setContentView(R.layout.activity_demo);
         changeActionBarColor();
         findViews();
-        swipeBackLayout=getSwipeBackLayout();
         // 设置从左拖动，并从右边滑出
         setEdgeFromLeft();
     }
@@ -47,9 +44,6 @@ public class DemoActivity extends SwipeBackActivity implements View.OnClickListe
     private void findViews() {
         findViewById(R.id.btn_start).setOnClickListener(this);
         findViewById(R.id.btn_finish).setOnClickListener(this);
-
-        mDec =((ViewGroup)getWindow().getDecorView()).getChildAt(0);
-
     }
 
     private int[] getColors() {

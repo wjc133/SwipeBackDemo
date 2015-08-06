@@ -13,30 +13,32 @@ import java.util.List;
  */
 public class WhistleApp extends Application implements Handler.Callback {
     public static Handler mHandler;
-    private List<Handler.Callback> callbacks;
+    private static List<Handler.Callback> callbacks=new ArrayList<Handler.Callback>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        callbacks=new ArrayList<Handler.Callback>();
-        mHandler=new Handler();
+        mHandler=new Handler(this);
     }
 
-    public void addCallback(Handler.Callback callback){
+    public static void addCallback(Handler.Callback callback){
         callbacks.add(callback);
     }
 
-    public void removeCallback(Handler.Callback callback){
+    public static void removeCallback(Handler.Callback callback){
         callbacks.remove(callback);
     }
 
 
     @Override
     public boolean handleMessage(Message msg) {
-        notifyCallbacks();
+        notifyCallbacks(msg);
+        return true;
     }
 
-    private void notifyCallbacks() {
-
+    private void notifyCallbacks(Message msg) {
+        for (Handler.Callback callback:callbacks){
+            callback.handleMessage(msg);
+        }
     }
 }
